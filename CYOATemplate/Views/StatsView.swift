@@ -14,11 +14,16 @@ struct StatsView: View {
     // Whether this view is showing in the sheet right now
     @Binding var showing: Bool
     
+    @State var uniquePagesCount: Int = 0
+    
+    @Environment(BookStore.self) var book
+
     // MARK: Computed properties
     var body: some View {
         NavigationStack {
             VStack {
-                Text("A total of x pages out of y pages overall have been visited in this story.")
+                Text("\(uniquePagesCount)")
+                Text("Hello")
             }
             .padding()
             .navigationTitle("Statistics")
@@ -35,6 +40,13 @@ struct StatsView: View {
                     }
 
                 }
+            }
+        }
+        .task {
+            do {
+                uniquePagesCount = try await book.getCountOfUniquePages(userId: book.reader.id ?? 0)
+            } catch {
+                print("Problem getting page count")
             }
         }
     }

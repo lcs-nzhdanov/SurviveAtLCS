@@ -231,4 +231,31 @@ class BookStore: Observable {
         
     }
     
+    
+    // Get the number of unique pages visited by reader
+    func getCountOfUniquePages(userId: Int) async throws -> Int {
+        
+
+        do {
+            let response = try await supabase
+            .from("reader_page")
+            .select(
+              "page_id",
+              head: true,
+              count: .exact
+            )
+            
+            // filter to only this user’s rows
+            .eq("user_id", value: userId)
+            .execute()
+            
+            print("response received when trying to get count of pages: \(response)")
+            return -1
+        } catch {
+            print(error)
+            return -2
+        }
+
+    }
+    
 }

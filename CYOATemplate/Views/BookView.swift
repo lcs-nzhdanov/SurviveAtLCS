@@ -78,6 +78,7 @@ struct BookView: View {
             // Show the statistics view
             .sheet(isPresented: $showingStatsView) {
                 StatsView(showing: $showingStatsView)
+                    .environment(book)
             }
             // Show the settings view
             .sheet(isPresented: $showingSettingsView) {
