@@ -74,6 +74,7 @@ struct BookView: View {
 
                 }
 
+                
             }
             // Show the statistics view
             .sheet(isPresented: $showingStatsView) {
